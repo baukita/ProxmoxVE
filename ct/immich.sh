@@ -85,7 +85,7 @@ function update_script() {
           -e "/vchordrq.prewarm_dim/d" |
         sudo -u postgres psql
     fi
-    curl -fsSL "https://github.com/tensorchord/vectorchord/releases/download/${VCHORD_RELEASE}/postgresql-16-vchord_${VCHORD_RELEASE}-1_amd64.deb" -o vchord.deb
+    curl -fsSL "https://github.com/tensorchord/vectorchord/releases/download/${VCHORD_RELEASE}/postgresql-14-vchord_${VCHORD_RELEASE}-1_amd64.deb" -o vchord.deb
     $STD apt install -y ./vchord.deb
     $STD sudo -u postgres psql -d immich -c "ALTER EXTENSION vchord UPDATE;"
     systemctl restart postgresql
