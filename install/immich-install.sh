@@ -112,18 +112,18 @@ if [[ ${prompt,,} =~ ^(y|yes)$ ]]; then
 fi
 
 NODE_VERSION="22" setup_nodejs
-PG_VERSION="16" PG_MODULES="pgvector" setup_postgresql
+PG_VERSION="14" PG_MODULES="pgvector" setup_postgresql
 
 msg_info "Setting up Postgresql Database"
 VCHORD_RELEASE="$(curl -fsSL https://api.github.com/repos/tensorchord/vectorchord/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3) }')"
-curl -fsSL "https://github.com/tensorchord/VectorChord/releases/download/${VCHORD_RELEASE}/postgresql-16-vchord_${VCHORD_RELEASE}-1_amd64.deb" -o vchord.deb
+curl -fsSL "https://github.com/tensorchord/VectorChord/releases/download/${VCHORD_RELEASE}/postgresql-14-vchord_${VCHORD_RELEASE}-1_amd64.deb" -o vchord.deb
 $STD apt install -y ./vchord.deb
 rm vchord.deb
 echo "$VCHORD_RELEASE" >~/.vchord_version
 DB_NAME="immich"
 DB_USER="immich"
 DB_PASS=$(openssl rand -base64 18 | tr -dc 'a-zA-Z0-9' | head -c18)
-sed -i -e "/^#shared_preload/s/^#//;/^shared_preload/s/''/'vchord.so'/" /etc/postgresql/16/main/postgresql.conf
+sed -i -e "/^#shared_preload/s/^#//;/^shared_preload/s/''/'vchord.so'/" /etc/postgresql/14/main/postgresql.conf
 systemctl restart postgresql.service
 $STD sudo -u postgres psql -c "CREATE USER $DB_USER WITH ENCRYPTED PASSWORD '$DB_PASS';"
 $STD sudo -u postgres psql -c "CREATE DATABASE $DB_NAME WITH OWNER $DB_USER ENCODING 'UTF8' TEMPLATE template0;"
