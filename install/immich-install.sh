@@ -154,8 +154,8 @@ if [[ -f ~/.openvino ]]; then
 fi
 msg_ok "Packages from Testing Repo Installed"
 
-$STD sudo -u postgres psql -c "ALTER DATABASE postgres REFRESH COLLATION VERSION;"
-$STD sudo -u postgres psql -c "ALTER DATABASE $DB_NAME REFRESH COLLATION VERSION;"
+# $STD sudo -u postgres psql -c "ALTER DATABASE postgres REFRESH COLLATION VERSION;"
+# $STD sudo -u postgres psql -c "ALTER DATABASE $DB_NAME REFRESH COLLATION VERSION;"
 
 msg_info "Compiling Custom Photo-processing Library (extreme patience)"
 LD_LIBRARY_PATH=/usr/local/lib
